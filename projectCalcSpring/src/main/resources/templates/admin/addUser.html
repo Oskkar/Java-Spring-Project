@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+    .bg{
+        background: white;
+        /*background: url(../static/images.loginbackground.jpg);*/
+        height: 100%;
+        width: 100%;
+    }
+    #log{
+        padding: 60px 40px;
+        margin-top: 80px;
+        
+        -webkit-box-shadow: -5px 2px 62px 8px rgba(0,0,0,0.75);
+        -moz-box-shadow: -5px 2px 62px 8px rgba(0,0,0,0.75);
+         box-shadow: -5px 2px 62px 8px rgba(0,0,0,0.75);
+    }
+</style>
+
+<title>Registration</title>
+</head>
+<body class="bg">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+                <div class="col-md-4 col-sm-4 col-xs-12">
+ 
+                    <form id="log" name="userForm" th:action="@{/addUser}" method="post">
+                        
+                        <h1>Formularz Rejestracyjny</h1>
+
+                        <div class="form-group">
+                            <label>Nazwa firmy</label>
+                            <input type="text" class="form-control" placeholder="Nazwa Firmy" name="nazwaFirmy" id="nazwaFirmy" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Nick</label>
+                            <input type="text" class="form-control" placeholder="Nick" name="username" id="username" th:value="${username}" />
+                        </div>
+                       
+                        
+                        <div class="form-group">
+                            <label>Hasło</label>
+                            <input type="password" class="form-control" placeholder="Hasło" name="password" id="password" />
+                        </div>
+                        <div class="form-group" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                            Administrator <input type="checkbox" name="roles" value="ADMIN"/>
+                            Użytkownik  <input type="checkbox" name="roles" value="USER" />
+                        
+                        </div>
+                        
+                        <div class="form-group" sec:authorize="isAnonymous()">
+                            Użytkownik  <input type="checkbox" name="roles" value="USER" checked="checked"/>
+                        </div>
+                    
+                        <input type="submit" class="btn btn-success btn-block" value="join" />
+                    </form>
+                </div>
+            <div class="col-md-4 col-sm-4 col-xs-12"></div>
+        </div>
+    </div>
+
+</body>
+</html>

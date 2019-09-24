@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.12.3/printThis.js"></script>
+
+        <title>Result</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+
+        
+    </head>
+    <body>
+        
+            <div class="col-md-4">
+		<h1>Historia</h1>
+            </div>
+        
+        
+            <form action="#" th:action="@{/elo}" th:object="${calculator}" method="post">
+                <form th:action="@{/logout}" method="post">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-secondary" th:attr="href=@{/user}">Kalkulator</a>
+                        <a class="btn btn-secondary" th:attr="href=@{/form}">Historia</a>
+                        <a class="btn btn-secondary" sec:authorize="hasRole('ROLE_ADMIN')" th:attr="href=@{/users}">Użytkownicy</a>
+                    <input type="submit" value="Wyloguj" />
+                    </div>
+                </form>
+                <div style="padding:0 20px"/>
+
+                <a th:attr="href=@{/orderByCompany}">Sortuj po nazwie firmy</a>
+                <a th:attr="href=@{/orderByDateW}">Sortuj po nazwie firmy</a>
+                <a th:attr="href=@{/orderByDateP}">Sortuj po nazwie firmy</a>
+                
+                <table class="table table-striped"> 
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nazwa Firmy</th>
+                                <th>Data Wyjazdu</th>
+                                <th>Data Przyjazdu</th>
+                            </tr>  
+                        </thead>
+                        <tbody th:each = "calc : ${calcResults}">
+                            <tr>
+                                <td th:text="${calc.id}"></td>
+                                <td th:each="i : ${calc.userId}" th:text="${i.nazwaFirmy}"></td>
+                                <td th:text="${#dates.format(calc.dataWyjazdu, 'dd-MM-yyyy')}"></td>
+                                <td th:text="${#dates.format(calc.dataPrzyjazdu, 'dd-MM-yyyy')}"></td>
+                            </tr>
+                        </tbody>     
+                </table>
+                <table>
+
+                    <tr>
+                        <td>Wybierz id:  </td>
+                        <td>                          
+                            <select th:field="${calculator.id}">
+                                 <option th:each = "calc : ${calcResults}"
+                                         th:value="${calc.id}"
+                                         th:attr="calcid=${calc.id}, calculatorid=${calculator.id}, showselected=(${calc.id} == ${calculator.id})"
+                                         th:selected="(${calc.id} == ${calculator.id})" 
+                                         th:readonly="(${calc.id} == ${calculator.id})"
+                                         th:text="${calc.id}">  
+                                 </option>
+                            </select>
+                        </td>
+                        
+                        <td><button type="submit">  Sprawdź rekord</button></td>
+                    </tr>
+                   
+                </table>
+                
+            </form>
+    </body>
+</html>

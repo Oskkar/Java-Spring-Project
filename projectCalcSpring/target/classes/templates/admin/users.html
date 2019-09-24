@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+   To change this license header, choose License Headers in Project Properties.
+   To change this template file, choose Tools | Templates
+   and open the template in the editor.
+   -->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+   xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <link rel="stylesheet" href="style.css" type="text/css"/>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.12.3/printThis.js"></script>
+      <title>Użytkownicy</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <div class="col-md-4">
+         <h1>Użytkownicy</h1>
+      </div>
+       
+      <form id="log" name="userForm" th:action="@{/addUser}">
+        <div style="padding:0 20px"/>
+        <form th:action="@{/logout}" method="post">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a class="btn btn-secondary" th:attr="href=@{/user}">Kalkulator</a>
+                <a class="btn btn-secondary" th:attr="href=@{/form}">Historia</a>
+                <a class="btn btn-secondary" sec:authorize="hasRole('ROLE_ADMIN')" th:attr="href=@{/users}">Użytkownicy</a>
+            </div>
+        </form>
+        
+        <table class="table table-striped">
+           <thead>
+              <tr>
+                 <th>ID</th>
+                 <th>Nazwa Firmy</th>
+                 <th>Nazwa użytkownika</th>
+                 <th>Rola</th>
+              </tr>
+           </thead>
+           <tbody th:each = "user : ${users}">
+              <tr>
+                 <td th:text="${user.id}"></td>
+                 <td th:text="${user.nazwaFirmy}"></td>
+                 <td th:text="${user.username}"></td>
+                 <td th:each="i : ${user.roles}" th:text="${i.name}"></td>
+              </tr>
+           </tbody>
+        </table>
+        <input type="submit" class="btn btn-success btn-block" value="Dodaj użytkownika" />
+      </form>
+   </body>
+</html>

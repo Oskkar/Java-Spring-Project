@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Main</title>
+</head>
+<body>
+	<span sec:authentication="name"></span>
+	<span sec:authentication="principal.authorities"></span> 
+	<div sec:authorize="hasAuthority('USER')"></div>
+
+        <form th:action="@{/logout}" method="post">
+        
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a class="btn btn-secondary" th:attr="href=@{/user}">Kalkulator</a>
+            <a class="btn btn-secondary" th:attr="href=@{/form}">Historia</a>
+            <a class="btn btn-secondary" sec:authorize="hasRole('ROLE_ADMIN')" th:attr="href=@{/users}">Użytkownicy</a>
+		<input type="submit" value="Wyloguj" />
+        </div>
+        
+        </form>
+</body>
+</html>

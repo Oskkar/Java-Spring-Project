@@ -1,0 +1,16 @@
+com\example\auth\config\CustomAuthenticationFailure.class
+com\example\auth\web\repository\CalculatorRepository.class
+com\example\SpringbootJpaSecurityLoginApplication.class
+com\example\auth\web\service\SecurityService.class
+com\example\auth\web\model\Role.class
+com\example\auth\config\WebSecurityConfig.class
+com\example\auth\web\model\Calculator.class
+com\example\auth\web\repository\UserRepository.class
+com\example\auth\web\model\User.class
+com\example\auth\web\service\UserDetailsServiceImpl.class
+com\example\auth\web\service\SecurityServiceImpl.class
+com\example\auth\web\service\UserServiceImpl.class
+com\example\auth\web\model\CalculatorResult.class
+com\example\auth\web\WebController.class
+com\example\auth\config\CustomAuthenticationSuccess.class
+com\example\auth\web\service\UserService.class

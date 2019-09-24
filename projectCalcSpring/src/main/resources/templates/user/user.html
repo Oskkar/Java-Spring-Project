@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <head>
+        <title>Kalkulator krajowej podróży służbowej</title>
+        
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <style>
+        #wrapper {
+            background-color: honeydew;
+            margin-left: 5px;
+            margin-right: 5px
+        }
+        </style>
+        
+    </head>
+    <body>
+        <span sec:authentication="name"></span>
+        <span sec:authentication="principal.authorities"></span>
+        <div id ="wrapper">
+            <form action="#" th:action="@{/result}" th:object="${calculator}" method="post">
+                <table>
+                    <tr><td><b><font size="5">Diety</font></b></td></tr>
+                    
+                    <tr>
+                        <td>Godzina Wyjazdu</td>
+                        <td><input type="time" th:field="*{godzinaWyjazdu}"/></td>
+                        <td th:if="${#fields.hasErrors('godzinaWyjazdu')}" th:errors="*{godzinaWyjazdu}">Town Error</td>
+                        
+                        <td>Data Wyjazdu</td>
+                        <td><input type="date" th:field="*{dataWyjazdu}"/></td>
+                        <td th:if="${#fields.hasErrors('dataWyjazdu')}" th:errors="*{dataWyjazdu}">Town Error</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Godzina Przyjazdu</td>
+                        <td><input type="time" th:field="*{godzinaPrzyjazdu}"/></td>
+                        <td th:if="${#fields.hasErrors('godzinaPrzyjazdu')}" th:errors="*{godzinaPrzyjazdu}">Town Error</td>
+                        
+                        <td>Data Przyjazdu</td>
+                        <td><input type="date" th:field="*{dataPrzyjazdu}"/></td>
+                        <td th:if="${#fields.hasErrors('dataPrzyjazdu')}" th:errors="*{dataPrzyjazdu}">Town Error</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Wysokość diety za dobę podróży</td>
+                        <td><input type="number" th:field="*{dietaPodrozy}"/> Zł</td>
+                        <td th:if="${#fields.hasErrors('dietaPodrozy')}" th:errors="*{dietaPodrozy}">Town Error</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Ilość śniadań</td>
+                        <td><input type="number" th:field="*{iloscSniadan}"/></td>
+                        
+                        <td>Ilość obiadów</td>
+                        <td><input type="number" th:field="*{iloscObiadow}"/></td>
+                       
+                        <td>Ilość kolacji</td>
+                        <td><input type="number" th:field="*{iloscKolacji}"/></td>
+                    </tr>
+                    
+                    <tr><td><b><font size="5">Zwrot Kosztów Przejazdu</font></b></td></tr>
+                    
+                    <tr>
+                        <td>Środek transportu</td>
+                        <td>                           
+                            <select th:field="*{srodekTransportu}">
+                                 <option value="Pociag">Pociąg</option>
+                                 <option value="Bus">Bus</option>
+                                 <option value="Samolot">Samolot</option>
+                                 <option value="Statek">Statek</option>
+                                 <option value="Inne">Inne</option>
+                            </select>
+                        </td>
+                        
+                        <td>Cena Biletu</td>
+                        <td><input type="number" th:field="*{cenaSrodekTransportu}"/> Zł</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Własny Pojazd</td>
+                        <td>
+                           <select th:field="*{pojazd}">
+                                 <option value="Samochód o pojemności do 900cm3">Samochód(poj do 900cm3)</option>
+                                 <option value="Samochód o pojemności powyżej 900cm3">Samochód(poj od 900cm3)</option>
+                                 <option value="Motocykl">Motocykl</option>
+                                 <option value="Motorower">Motorower</option>
+                            </select>     
+                        </td>
+                        
+                        <td>Ilość Kilometrów</td>
+                        <td><input type="number" th:field="*{iloscKilometrow}"/> Km</td>
+                    </tr>
+                    
+                    <tr><td><b><font size="5">Zwrot Kosztów Przejazdu</font></b></td></tr>
+                    
+                    <tr>
+                        <td>Ilość dób, za które przysługuje ryczałt za dojazdy</td>
+                        <td><input type="number" th:field="*{iloscDobDojazd}"/></td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Kwota dojazdów</td>
+                        <td><input type="number" th:field="*{cenaBiletu}"/> Zł</td>
+                    </tr>
+                    
+                    <tr><td><b><font size="5">Koszt noclegów</font></b></td></tr>
+                    
+                    <tr>
+                        <td>Liczba Noclegów</td>
+                        <td><input type="number" th:field="*{liczbaNoclegow}"/></td>
+                        <td th:if="${#fields.hasErrors('liczbaNoclegow')}" th:errors="*{liczbaNoclegow}"/>
+                        
+                        <td>Koszt Noclegów</td>
+                        <td><input type="number" th:field="*{cenaNoclegu}"/> Zł</td>
+                        <td th:if="${#fields.hasErrors('cenaNoclegu')}" th:errors="*{cenaNoclegu}"/>
+                    </tr>
+                    
+                    <tr>
+                        <td><button type="submit">Przelicz</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>

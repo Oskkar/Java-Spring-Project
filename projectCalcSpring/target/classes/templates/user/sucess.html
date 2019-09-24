@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+        <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.12.3/printThis.js"></script>
+
+        <title>Result</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        
+        
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-secondary" th:attr="href=@{/user}">Kalkulator</a>
+                        <a class="btn btn-secondary" th:attr="href=@{/form}">Historia</a>
+                        <a class="btn btn-secondary" sec:authorize="hasRole('ROLE_ADMIN')" th:attr="href=@{/users}">Użytkownicy</a>
+                    </div>
+            <table class="table" th:each="calc : ${calcResults}">
+                
+                <tr>
+                    <td>ID</td>
+                    <td th:text="${calc.id}"/>
+                </tr>
+                <tr><td><b><font size="5">Diety</font></b></td></tr>
+                <tr>
+                    <td>Data Wyjazdu</td>
+                    <td th:text="${#dates.format(calc.dataWyjazdu, 'dd-MM-yyyy')}"/>
+                    
+                    <td>Godzina Wyjazdu</td>
+                    <td th:text="${#dates.format(calc.godzinaWyjazdu, 'HH:mm')}"/>
+                </tr>
+                
+                <tr>
+                    <td>Data Przyjazdu</td>
+                    <td th:text="${#dates.format(calc.dataPrzyjazdu, 'dd-MM-yyyy')}"/>
+                    
+                    <td>Godzina Przyjazdu</td>
+                    <td th:text="${#dates.format(calc.godzinaPrzyjazdu, 'HH:mm')}"/>
+                </tr>
+                
+                <tr>
+                    <td>Czas Podróży</td>
+                    <td th:text="${calc.czasPodrozy}"/>
+                </tr> 
+                
+                <tr>
+                    <td>Dieta Podróży</td>
+                    <td th:text="${calc.dietaPodrozySum}"/>
+                </tr> 
+                
+                <tr>
+                    <td>Liczba zapewnionych śniadań</td>
+                    <td th:text="${calc.iloscSniadan}"/>
+                </tr> 
+                
+                <tr>
+                    <td>Liczba zapewnionych obiadów</td>
+                    <td th:text="${calc.iloscObiadow}"/>
+                </tr> 
+                
+                <tr>
+                    <td>Liczba zapewnionych kolacji</td>
+                    <td th:text="${calc.iloscKolacji}"/>
+                </tr> 
+                
+                <tr>
+                    <td>Łączna kwota zmniejszająca diety</td>
+                    <td th:text="${calc.kwotaZmniejszajacaDiety}"/>
+                </tr> 
+                
+                <tr>
+                    <td>Łączna wysokość diet</td>
+                    <td th:text="${calc.roznicaDiet}"/>
+                </tr> 
+                
+                <tr><td><b><font size="5">Koszt noclegów</font></b></td></tr>
+                
+                <tr>
+                    <td>Rodzaj środka transportu</td>
+                    <td th:text="${calc.srodekTransportu}"/>    
+                </tr>
+                
+                <tr>
+                    <td>Koszt Wg Ceny Biletu</td>
+                    <td th:text="${calc.cenaBiletu}"/>
+                </tr>
+                
+                <tr>
+                    <td>Pojazd</td>
+                    <td th:text="${calc.pojazd}"/>
+                </tr>
+                
+                <tr>
+                    <td>Ilość Kilometrów</td>
+                    <td th:text="${calc.iloscKilometrow}"/>
+                </tr>
+                
+                <tr>
+                    <td>Koszt Podróży</td>
+                    <td th:text="${calc.kosztPodrozy}"/>
+                </tr>
+                
+                <tr><td><b><font size="5">Dojazdy środkami komunikacji miejscowej</font></b></td></tr>
+                
+                <tr>
+                    <td>Ilość dób, za które przysługuje ryczałt za dojazdy</td>
+                    <td th:text="${calc.iloscDobDojazd}"/>  
+                </tr>
+                
+                <tr>
+                    <td>Ryczałt za dojazdy</td>
+                    <td th:text="${calc.ryczaltZaDojazdy}"/>  
+                </tr>
+                
+                <tr>
+                    <td>Ilość dób, za które przysługuje ryczałt za dojazdy</td>
+                    <td th:text="${calc.cenaBiletu}"/>  
+                </tr>
+                
+                <tr><td><b><font size="5">Koszt noclegów</font></b></td></tr>
+                
+                <tr>
+                    <td>Liczba noclegów za które przysługuje ryczałt</td>
+                    <td th:text="${calc.liczbaNoclegow}"/>
+                </tr>   
+                
+                <tr>
+                    <td>Przysługujący ryczałt</td>
+                    <td th:text="${calc.noclegRyczalt}"/>
+                </tr>
+                
+                <tr>
+                    <td>Cena Noclegu</td>
+                    <td th:text="${calc.cenaNoclegu}"/>
+                </tr>
+                
+                <tr><td><b><font size="5">Wynik</font></b></td></tr>
+                <tr>
+                    
+                    <td>Do wypłaty</td>
+                    <td th:text="${calc.sumaKosztow}"/>
+                </tr>    
+                
+                <tr><td><b><font size="5">/////////////////////////////////</font></b></td></tr>
+            </table>
+        <button onclick="$('.table').printThis()">Drukuj</button>
+    </body>
+</html>
