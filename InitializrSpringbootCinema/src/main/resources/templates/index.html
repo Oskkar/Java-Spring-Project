@@ -1,0 +1,74 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments :: head">
+        <title>TODO supply a title</title>
+    </head>
+    <body>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       
+        
+        <form action="#" th:action="@{/reservations}" th:object="${ticket}" method="post">
+            <nav th:replace="fragments :: navigation"></nav>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tytuł Filmu</th>
+                        <th>Gatunek</th>
+                    </tr>
+                </thead>
+                <tbody th:each="film : ${films}">
+                    <tr>
+                        <td th:text="${film.id}"></td>
+                        <td th:text="${film.title}"></td>
+                        <td th:text="${film.typeOfFilm}"></td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+            
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th >Złóż Rezerwacje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> Imię <input type="text" th:field="*{customerName}" class="form-control" placeholder="Imię"/></td>
+                    </tr>
+
+                    <tr> 
+                        <td>
+                            Wybierz Film
+                            <select class="form-control" name="filmId">
+				<option th:each="film : ${films}" 
+					th:value="${film.id}" 
+					th:text="${film.title}"></option>
+                            </select>
+                        </td> 
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            TypFilmu
+                            <select class="form-control" th:field="*{typeOfFilm}">
+                                 <option value="1D">1D</option>
+                                 <option value="2D">2D</option>
+                            </select>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td><button type="submit" class="btn btn-success">Rezerwuj</button></td>
+                    </tr>
+                    
+                </tbody>
+                
+            </table>
+        </form>
+    </body>
+</html>

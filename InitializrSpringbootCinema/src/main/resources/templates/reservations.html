@@ -1,0 +1,38 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="fragments :: head">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    </head>
+    <body>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+            <nav th:replace="fragments :: navigation"></nav>
+            
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Imię</th>
+                        <th>Tytuł Filmu</th>
+                        <th>Cena</th>
+                    </tr>
+                </thead>
+                <tbody th:each="ticket : ${tickets}">
+                    <tr>
+                        <td th:text="${ticket.id}"></td>
+                        <td th:text="${ticket.customerName}"></td>
+                        <td th:text="${ticket.films.title}"></td>
+                        <td th:text="${ticket.price}"></td>
+                        
+
+                    </tr>
+                </tbody>
+            </table>
+    </body>
+</html>
